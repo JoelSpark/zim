@@ -39,7 +39,6 @@ You can replace ``helloworld`` with your desired project name.
 
 See also, a [ready-made application](https://github.com/heroku/python-getting-started), ready to deploy.
 
-## Using Python 2.7?
 
 Just update `runtime.txt` to `python-2.7.13` (no trailing spaces or newlines!).
 
