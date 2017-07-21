@@ -14,6 +14,13 @@ class Asset(models.Model):
 class Fault(models.Model):
     body = models.TextField()
     start_time = models.DateTimeField('start time')
+    resolved_time = models.DateTimeField(null=True, blank=True)
+    status = models.CharField(
+        max_length=2, default='AC',
+        choices=[('AC', 'Active'),
+                 ('IN', 'Inactive'),
+                 ('FP', 'False Positive'),
+                 ('OB', 'OBE')])
     asset = models.ForeignKey(Asset, on_delete=models.CASCADE,
                               null=True, blank=True)
 
