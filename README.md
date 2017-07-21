@@ -72,4 +72,17 @@ python manage.py migrate
 
 * `pip freeze > requirements.txt` to capture modules for use in virtual environment FROM WITHIN the virtualenv
 * `heroku run <command>`
-* `python manage.py migrate`
+### Migrations
+General workflow:
+```
+(edit models.py)
+python manage.py makemigrations <app>
+python manage.py check
+python manage.py migrate
+```
+* `python manage.py sqlmigate <app> <migration>` to see SQL commands that will be run
+* `python manage.py check` to check for errors
+
+## Future ideas:
+
+* `https://github.com/aljosa/django-tinymce` for rich-text fields
