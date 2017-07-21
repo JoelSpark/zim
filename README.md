@@ -82,6 +82,7 @@ python manage.py migrate
 ```
 * `python manage.py sqlmigate <app> <migration>` to see SQL commands that will be run
 * `python manage.py check` to check for errors
+* `python manage.py shell` to play with the API
 
 ## Future ideas:
 
