@@ -1,0 +1,9 @@
+{% if fault_list %}
+    <ul>
+    {% for fault in fault_list %}
+        <li><a href="/rico/faults/{{ fault.id }}/">{{ fault.id }}</a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No faults are available.</p>
+{% endif %}
