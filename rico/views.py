@@ -8,3 +8,7 @@ from django.http import HttpResponse
 
 def index(request):
     return HttpResponse("Hello, world. This is the rico index.")
+
+
+def detail(request, fault_id):
+    return HttpResponse("You're looking at fault_id %s" % fault_id)
