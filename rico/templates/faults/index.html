@@ -1,7 +1,7 @@
 {% if fault_list %}
     <ul>
     {% for fault in fault_list %}
-        <li><a href="/rico/faults/{{ fault.id }}/">{{ fault.id }}</a></li>
+        <li><a href="{% url 'fault_detail' fault.id %}">{{ fault.id }}</a></li>
     {% endfor %}
     </ul>
 {% else %}
