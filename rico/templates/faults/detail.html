@@ -1,11 +1,13 @@
-<h1>Fault ID: {{ fault.id }}</h1>
+<h1>Fault {{ fault.id }}: {{ fault.title }}</h1>
 <p><strong>Start time: </strong> {{ fault.start_time }}</p>
 <p><strong>Resolved time: </strong> {{ fault.resolved_time }}</p>
 <p><strong>Status: </strong> {{ fault.get_status_display }}</p>
+<p><strong>Description:</strong></p>
+<p>{{ fault.description }}</p>
 <p><strong>Linked Issues: </strong></p>
 
 {%  for issue in fault.issue_set.all %}
-    <p><a href="{% url 'issue_detail' pk=issue.id %}"></a></p>
+    <p><a href="{% url 'issue_detail' pk=issue.id %}">I-{{ issue.id }}: {{ issue.title }}</a></p>
 {% empty %}
     <p>None</p>
 {% endfor %}

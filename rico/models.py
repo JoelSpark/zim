@@ -14,17 +14,11 @@ class Comment(models.Model):
         return self.content
 
 
-class Asset(models.Model):
-    name = models.CharField(max_length=200)
-
-    def __str__(self):
-        return self.name
-
-
 class Fault(models.Model):
     # Attributes
-    body = models.TextField()
-    start_time = models.DateTimeField('start time')
+    title = models.CharField(max_length=140)
+    description = models.TextField(null=True, blank=True)
+    start_time = models.DateTimeField(null=True, blank=True)
     resolved_time = models.DateTimeField(null=True, blank=True)
     status = models.CharField(
         max_length=2, default='AC',
@@ -33,15 +27,21 @@ class Fault(models.Model):
                  ('FP', 'False Positive'),
                  ('OB', 'OBE')])
     # Foreign Keys
-    asset = models.ForeignKey(Asset, on_delete=models.CASCADE,
-                              null=True, blank=True)
     comments = models.ManyToManyField(Comment)
 
     def __str__(self):
         try:
-            return str(self.id)
+            return str(self.title)
         except NameError:
             return "None"
+
+
+class Asset(models.Model):
+    name = models.CharField(max_length=140)
+    faults = models.ManyToManyField(Fault)
+
+    def __str__(self):
+        return self.name
 
 
 class Issue(models.Model):

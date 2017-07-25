@@ -1,0 +1,9 @@
+{% if issue_list %}
+    <ul>
+    {% for issue in issue_list %}
+        <li><a href="{% url 'issue_detail' issue.id %}">{{ issue.id }}</a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No issues are available.</p>
+{% endif %}

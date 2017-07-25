@@ -1,0 +1,28 @@
+<h1>Issue {{ issue.id }}: {{ issue.title }}</h1>
+<p><strong>Created time: </strong> {{ issue.created_time }}</p>
+<p><strong>Resolution: </strong> {{ issue.get_resolution_display }}</p>
+<p><strong>Description: </strong></p>
+<p>{{ issue.description }}</p>
+<p><strong>Linked Faults: </strong></p>
+
+{%  for fault in issue.faults.all %}
+    <p><a href="{% url 'fault_detail' pk=fault.id %}">F-{{ fault.id }}</a></p>
+{% empty %}
+    <p>None</p>
+{% endfor %}
+
+{% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+
+<hr>
+<h2>Comments: </h2>
+<a class="btn btn-default" href="{% url 'add_comment' object_name='issue' pk=issue.id %}">Add comment</a>
+{% for comment in issue.comments.all %}
+    <div class="comment">
+        <div class="date">{{ comment.timestamp }}</div>
+        <strong>{{ comment.user }}</strong>
+        <p>{{ comment.content|linebreaks }}</p>
+    </div>
+{% empty %}
+    <p>No comments here yet :(</p>
+{% endfor %}
+<hr>
