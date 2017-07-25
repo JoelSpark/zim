@@ -23,9 +23,10 @@ class IssueForm(ModelForm):
                   'description',
                   'resolution',
                   'faults',
-                  'comments',
                   )
-        exclude = ('created_time',)
+        exclude = ('created_time',
+                   'comments',
+                   )
 
 
 class AssetForm(ModelForm):
