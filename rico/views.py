@@ -6,23 +6,26 @@ from datetime import datetime
 from django.shortcuts import get_object_or_404, get_list_or_404
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, HttpResponseBadRequest
+from django.views import generic
 
 from .models import Fault, Asset, Issue
 from .forms import FaultForm, IssueForm, AssetForm, CommentForm
 
 
 def index(request):
-    return HttpResponse("Hello, world. This is the rico index.")
+    return render(request, 'rico/index.html')
 
 
-def fault_index(request):
-    fault_list = get_list_or_404(Fault.objects.order_by('id'))
-    return render(request, 'faults/index.html', {'fault_list': fault_list})
+class FaultIndex(generic.ListView):
+    template_name = 'faults/index.html'
+
+    def get_queryset(self):
+        return Fault.objects.order_by('-id')
 
 
-def fault_detail(request, pk):
-    fault = get_object_or_404(Fault, pk=pk)
-    return render(request, 'faults/detail.html', {'fault': fault})
+class FaultDetail(generic.DetailView):
+    model = Fault
+    template_name = 'faults/detail.html'
 
 
 def add_fault(request):
@@ -39,14 +42,16 @@ def add_fault(request):
     return render(request, 'faults/add_fault.html', {'form': form})
 
 
-def issue_index(request):
-    issue_list = get_list_or_404(Issue.objects.order_by('id'))
-    return render(request, 'issues/index.html', {'issue_list': issue_list})
+class IssueIndex(generic.ListView):
+    template_name = 'issues/index.html'
+
+    def get_queryset(self):
+        return Issue.objects.order_by('-id')
 
 
-def issue_detail(request, pk):
-    issue = get_object_or_404(Issue, pk=pk)
-    return render(request, 'issues/detail.html', {'issue': issue})
+class IssueDetail(generic.DetailView):
+    model = Issue
+    template_name = 'issues/detail.html'
 
 
 def add_issue(request):
@@ -61,14 +66,16 @@ def add_issue(request):
     return render(request, 'issues/add_issue.html', {'form': form})
 
 
-def asset_list(request):
-    asset_list = get_list_or_404(Asset.objects.order_by('name'))
-    return render(request, 'assets/index.html', {'asset_list': asset_list})
+class AssetIndex(generic.ListView):
+    template_name = 'assets/index.html'
+
+    def get_queryset(self):
+        return Asset.objects.order_by('-id')
 
 
-def asset_detail(request, pk):
-    asset = get_object_or_404(Asset, pk=pk)
-    return render(request, 'assets/detail.html', {'asset': asset})
+class AssetDetail(generic.DetailView):
+    model = Asset
+    template_name = 'assets/detail.html'
 
 
 def add_asset(request):
