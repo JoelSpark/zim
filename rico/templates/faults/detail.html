@@ -2,11 +2,14 @@
 
 {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
 
-<form action="{% url 'fault_detail' fault.id %}" method="post">
-{% csrf_token %}
-{% for choice in question.choice_set.all %}
-    <input type="radio" name="choice" id="choice{{ forloop.counter }}" value="{{ choice.id }}" />
-    <label for="choice{{ forloop.counter }}">{{ choice.choice_text }}</label><br />
+<hr>
+<a class="btn btn-default" href="{% url 'add_comment_to_fault' fault_id=fault.id %}">Add comment</a>
+{% for comment in fault.comments.all %}
+    <div class="comment">
+        <div class="date">{{ comment.timestamp }}</div>
+        <strong>{{ comment.user }}</strong>
+        <p>{{ comment.content|linebreaks }}</p>
+    </div>
+{% empty %}
+    <p>No comments here yet :(</p>
 {% endfor %}
-<input type="submit" value="Vote" />
-</form>
