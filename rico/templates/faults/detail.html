@@ -1,9 +1,20 @@
-<h1>{{ fault.id }}</h1>
+<h1>Fault ID: {{ fault.id }}</h1>
+<p><strong>Start time: </strong> {{ fault.start_time }}</p>
+<p><strong>Resolved time: </strong> {{ fault.resolved_time }}</p>
+<p><strong>Status: </strong> {{ fault.get_status_display }}</p>
+<p><strong>Linked Issues: </strong></p>
+
+{%  for issue in fault.issue_set.all %}
+    <p><a href="{% url 'issue_detail' pk=issue.id %}"></a></p>
+{% empty %}
+    <p>None</p>
+{% endfor %}
 
 {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
 
 <hr>
-<a class="btn btn-default" href="{% url 'add_comment_to_fault' fault_id=fault.id %}">Add comment</a>
+<h2>Comments: </h2>
+<a class="btn btn-default" href="{% url 'add_comment' object_name='fault' pk=fault.id %}">Add comment</a>
 {% for comment in fault.comments.all %}
     <div class="comment">
         <div class="date">{{ comment.timestamp }}</div>
@@ -13,3 +24,4 @@
 {% empty %}
     <p>No comments here yet :(</p>
 {% endfor %}
+<hr>
